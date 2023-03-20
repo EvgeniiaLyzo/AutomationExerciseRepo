@@ -27,4 +27,9 @@ public class AccountPage {
     public boolean isLogged() {
         return driver.findElement(loggedAsUserLink).isDisplayed();
     }
+    
+    public LoginPage logout() {
+        driver.findElement(logoutLink).click();
+        return new LoginPage(driver);
+    }
 }

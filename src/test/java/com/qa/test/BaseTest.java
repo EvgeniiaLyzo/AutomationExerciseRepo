@@ -70,6 +70,7 @@ public class BaseTest {
         String browser = prop.getProperty("browser");
         if (browser.equalsIgnoreCase("CH")) {
             log.info("Initiating tests on Chrome browser");
+            System.setProperty("webdriver.http.factory", "jdk-http-client");
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
 

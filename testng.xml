@@ -3,7 +3,8 @@
 <suite name="All Test Suite">
     <test thread-count="2" name="Test">
         <classes>
-            <class name="com.qa.test.TC1_RegisterUser"></class>
+<!--            <class name="com.qa.test.TC1_RegisterUser"></class>-->
+            <class name="com.qa.test.TC2_LoginUser"/>
         </classes>
     </test>
 </suite>

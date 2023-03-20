@@ -2,12 +2,17 @@ package com.qa.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LoginPage {
     WebDriver driver;
     
     By loginEmail = By.xpath("//input[@data-qa='login-email']");
-    By password = By.xpath("//input[@data-qa='login-password']");
+    By passwordTbx = By.xpath("//input[@data-qa='login-password']");
     By signupName = By.xpath("//input[@data-qa='signup-name']");
     By signupEmail = By.xpath("//input[@data-qa='signup-email']");
     By loginBtn = By.xpath("//button[normalize-space()='Login']");
@@ -43,6 +48,32 @@ public class LoginPage {
     
     public LoginPage verifyNewUserSignup() {
         driver.findElement(newUserSignupElem);
+        return this;
+    }
+    
+    public AccountPage loginAsCorrectUser(String login, String password) {
+        driver.findElement(loginEmail).sendKeys(login);
+        driver.findElement(passwordTbx).sendKeys(password);
+//        System.out.println("Before click");
+        WebElement element = driver.findElement(loginBtn);
+        System.out.println("Found button: " + element);
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        System.out.println("About to click on the button");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        element.click();
+        System.out.println("Click done!");
+        return new AccountPage(driver);
+    }
+
+    public LoginPage loginAsIncorrectUser(String login, String password) {
+        driver.findElement(loginEmail).sendKeys(login);
+        driver.findElement(passwordTbx).sendKeys(password);
+        driver.findElement(loginBtn).click();
         return this;
     }
 }
